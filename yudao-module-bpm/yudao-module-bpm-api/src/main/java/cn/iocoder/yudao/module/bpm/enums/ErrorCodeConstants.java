@@ -21,6 +21,9 @@ public interface ErrorCodeConstants {
     ErrorCode OA_HR_POST_NOT_EXISTS = new ErrorCode(1009001006, "HR岗位未设置");
     ErrorCode OA_DAY_LEAVE_ERROR = new ErrorCode(1009001007, "请假天数必须>=1");
 
+    ErrorCode OA_APPLY_NOT_EXISTS = new ErrorCode(1009011001, "申请不存在");
+
+
     // ========== 流程模型 1-009-002-000 ==========
     ErrorCode MODEL_KEY_EXISTS = new ErrorCode(1009002000, "已经存在流程标识为【{}】的流程");
     ErrorCode MODEL_NOT_EXISTS = new ErrorCode(1009002001, "流程模型不存在");
@@ -56,6 +59,10 @@ public interface ErrorCodeConstants {
     // ========== 动态表单模块 1-009-010-000 ==========
     ErrorCode FORM_NOT_EXISTS = new ErrorCode(1009010000, "动态表单不存在");
     ErrorCode FORM_FIELD_REPEAT = new ErrorCode(1009010001, "表单项({}) 和 ({}) 使用了相同的字段名({})");
+
+
+    ErrorCode TABLE_NOT_EXISTS = new ErrorCode(1009010501, "动态表单列不存在");
+    ErrorCode DYNAMIC_TABLE_TAG_NOT_FOUND = new ErrorCode(1009010502, "动态表单的tag未找到:{}");
 
     // ========== 用户组模块 1-009-011-000 ==========
     ErrorCode USER_GROUP_NOT_EXISTS = new ErrorCode(1009011000, "用户组不存在");
