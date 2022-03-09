@@ -38,28 +38,29 @@
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="申请编号" align="center" prop="id" />
+      <el-table-column label="申请编号" align="center" prop="formData.id" />
+
+      <el-table-column label="开始时间" align="center" prop="formData.startTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.formData.startTime) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="结束时间" align="center" prop="formData.endTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.formData.endTime) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="请假类型" align="center" prop="formData.type">
+        <template slot-scope="scope">
+          <dict-tag :type="DICT_TYPE.BPM_OA_LEAVE_TYPE" :value="scope.row.formData.type"/>
+        </template>
+      </el-table-column>
+      <el-table-column label="原因" align="center" prop="formData.reason" />
       <el-table-column label="状态" align="center" prop="result">
         <template slot-scope="scope">
           <dict-tag :type="DICT_TYPE.BPM_PROCESS_INSTANCE_RESULT" :value="scope.row.result"/>
         </template>
       </el-table-column>
-      <el-table-column label="开始时间" align="center" prop="startTime" width="180">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.startTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="结束时间" align="center" prop="endTime" width="180">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.endTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="请假类型" align="center" prop="type">
-        <template slot-scope="scope">
-          <dict-tag :type="DICT_TYPE.BPM_OA_LEAVE_TYPE" :value="scope.row.type"/>
-        </template>
-      </el-table-column>
-      <el-table-column label="原因" align="center" prop="reason" />
       <el-table-column label="申请时间" align="center" prop="applyTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
@@ -69,7 +70,7 @@
         <template slot-scope="scope">
           <el-button size="mini" type="text" icon="el-icon-delete" @click="handleCancel(scope.row)"
                      v-hasPermi="['bpm:oa-leave:create']" v-if="scope.row.result === 1">取消请假</el-button>
-          <el-button size="mini" type="text" icon="el-icon-view" @click="handleDetail(scope.row)"
+          <el-button size="mini" type="text" icon="el-icon-view" @click="handleDetail(scope.row.formData)"
                      v-hasPermi="['bpm:oa-leave:query']">详情</el-button>
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleProcessDetail(scope.row)">审批进度</el-button>
         </template>
@@ -149,8 +150,8 @@ export default {
       this.$router.push({ path: "/bpm/oa/leave/create"});
     },
     /** 详情按钮操作 */
-    handleDetail(row) {
-      this.$router.push({ path: "/bpm/oa/leave/detail", query: { id: row.id}});
+    handleDetail(formData) {
+      this.$router.push({ path: "/bpm/oa/leave/detail", query: { id: formData.id}});
     },
     /** 查看审批进度的操作 */
     handleProcessDetail(row) {

@@ -14,8 +14,16 @@ import javax.validation.constraints.NotNull;
 @ToString(callSuper = true)
 public class DynamicTableUpdateReqVO extends DynamicTableBaseVO {
 
+
     @ApiModelProperty(value = "编号", required = true)
     @NotNull(message = "编号不能为空")
     private Long id;
 
+    @ApiModelProperty(value = "表单项数组json串", required = true)
+    @NotNull(message = "表单项数组json串不能为空")
+    private String fields;
+
+    @ApiModelProperty(value = "配置", required = true)
+    @NotNull(message = "配置不能为空")
+    private String conf;
 }

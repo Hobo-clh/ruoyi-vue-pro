@@ -1,0 +1,28 @@
+import request from '@/utils/request'
+#set ($baseURL = "/${table.moduleName}/${simpleClassName_strikeCase}")
+
+// 创建${table.classComment}
+export function create${simpleClassName}(data) {
+  return request({
+    url: '${baseURL}/create',
+    method: 'post',
+    data: data
+  })
+}
+
+// 获得${table.classComment}
+export function get${simpleClassName}(id) {
+  return request({
+    url: '${baseURL}/get?id=' + id,
+    method: 'get'
+  })
+}
+
+// 获得${table.classComment}分页
+export function get${simpleClassName}Page(query) {
+  return request({
+    url: '${baseURL}/page',
+    method: 'get',
+    params: query
+  })
+}

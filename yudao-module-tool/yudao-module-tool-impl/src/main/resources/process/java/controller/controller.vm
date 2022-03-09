@@ -1,0 +1,67 @@
+package ${basePackage}.module.${table.moduleName}.controller.${sceneEnum.basePackage}.${table.businessName};
+
+import org.springframework.web.bind.annotation.*;
+import javax.annotation.Resource;
+import org.springframework.validation.annotation.Validated;
+#if ($sceneEnum.scene == 1)import org.springframework.security.access.prepost.PreAuthorize;#end
+
+import io.swagger.annotations.*;
+
+import javax.validation.constraints.*;
+import javax.validation.*;
+import javax.servlet.http.*;
+import java.util.*;
+import java.io.IOException;
+
+import ${PageResultClassName};
+import ${CommonResultClassName};
+import static ${CommonResultClassName}.success;
+
+import ${ExcelUtilsClassName};
+
+import ${OperateLogClassName};
+import static ${OperateTypeEnumClassName}.*;
+import static ${basePackage}.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
+
+// 目前写死
+import cn.iocoder.yudao.module.process.dal.ProcessCommonVo;
+
+import ${basePackage}.module.${table.moduleName}.controller.${sceneEnum.basePackage}.${table.businessName}.vo.*;
+import ${basePackage}.module.${table.moduleName}.dal.dataobject.${table.businessName}.${table.className}DO;
+import ${basePackage}.module.${table.moduleName}.convert.${table.businessName}.${table.className}Convert;
+import ${basePackage}.module.${table.moduleName}.service.${table.businessName}.${table.className}Service;
+
+@Api(tags = "${sceneEnum.name} - ${table.classComment}")
+@RestController
+##二级的 businessName 暂时不算在 HTTP 路径上，可以根据需要写
+@RequestMapping("/${table.moduleName}/${simpleClassName_strikeCase}")
+@Validated
+public class ${sceneEnum.prefixClass}${table.className}Controller {
+
+    @Resource
+    private ${table.className}Service ${classNameVar}Service;
+
+    @PostMapping("/create")
+    @ApiOperation("创建${table.classComment}")
+#if ($sceneEnum.scene == 1)    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:create')")#end
+    public CommonResult<${primaryColumn.javaType}> create${simpleClassName}(@Valid @RequestBody ${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO) {
+        return success(${classNameVar}Service.create${simpleClassName}(getLoginUserId(), createReqVO));
+    }
+
+    @GetMapping("/get")
+    @ApiOperation("获得${table.classComment}")
+    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = ${primaryColumn.javaType}.class)
+    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:query')")
+    public CommonResult<${sceneEnum.prefixClass}${table.className}RespVO> get${simpleClassName}(@RequestParam("id") ${primaryColumn.javaType} id) {
+        ${table.className}DO ${classNameVar} = ${classNameVar}Service.get${simpleClassName}(id);
+        return success(${table.className}Convert.INSTANCE.convert(${classNameVar}));
+    }
+
+    @GetMapping("/page")
+    @ApiOperation("获得${table.classComment}分页")
+#if ($sceneEnum.scene == 1)    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:query')")#end
+    public CommonResult<PageResult<ProcessCommonVo<${table.className}DO>>> get${simpleClassName}Page(@Valid ${sceneEnum.prefixClass}${table.className}PageReqVO pageVO) {
+        return success(${classNameVar}Service.get${simpleClassName}Page(pageVO));
+    }
+
+}

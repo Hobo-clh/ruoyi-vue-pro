@@ -8,6 +8,7 @@ import cn.iocoder.yudao.module.bpm.dal.dataobject.oa.BpmOALeaveDO;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.module.bpm.service.oa.BpmOALeaveService;
+import cn.iocoder.yudao.module.process.dal.ProcessCommonVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -55,9 +56,8 @@ public class BpmOALeaveController {
     @GetMapping("/page")
     @PreAuthorize("@ss.hasPermission('bpm:oa-leave:query')")
     @ApiOperation("获得请假申请分页")
-    public CommonResult<PageResult<BpmOALeaveRespVO>> getLeavePage(@Valid BpmOALeavePageReqVO pageVO) {
-        PageResult<BpmOALeaveDO> pageResult = leaveService.getLeavePage(getLoginUserId(), pageVO);
-        return success(BpmOALeaveConvert.INSTANCE.convertPage(pageResult));
+    public CommonResult<PageResult<ProcessCommonVo<BpmOALeaveDO>>> getLeavePage(@Valid BpmOALeavePageReqVO pageVO) {
+        return success(leaveService.getLeavePage(getLoginUserId(), pageVO));
     }
 
 }

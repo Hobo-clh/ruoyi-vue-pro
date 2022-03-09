@@ -21,20 +21,16 @@ public interface DynamicTableMapper extends BaseMapperX<DynamicTableDO> {
     default PageResult<DynamicTableDO> selectPage(DynamicTablePageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<DynamicTableDO>()
                 .likeIfPresent(DynamicTableDO::getTableName, reqVO.getTableName())
-                .likeIfPresent(DynamicTableDO::getFieldJson, reqVO.getFieldJson())
-                .likeIfPresent(DynamicTableDO::getComment, reqVO.getComment())
+                .eqIfPresent(DynamicTableDO::getComment, reqVO.getComment())
                 .betweenIfPresent(DynamicTableDO::getCreateTime, reqVO.getBeginCreateTime(), reqVO.getEndCreateTime())
-                .eqIfPresent(DynamicTableDO::getTenantId, reqVO.getTenantId())
                 .orderByDesc(DynamicTableDO::getId));
     }
 
     default List<DynamicTableDO> selectList(DynamicTableExportReqVO reqVO) {
         return selectList(new LambdaQueryWrapperX<DynamicTableDO>()
                 .likeIfPresent(DynamicTableDO::getTableName, reqVO.getTableName())
-                .likeIfPresent(DynamicTableDO::getFieldJson, reqVO.getFieldJson())
-                .likeIfPresent(DynamicTableDO::getComment, reqVO.getComment())
+                .eqIfPresent(DynamicTableDO::getComment, reqVO.getComment())
                 .betweenIfPresent(DynamicTableDO::getCreateTime, reqVO.getBeginCreateTime(), reqVO.getEndCreateTime())
-                .eqIfPresent(DynamicTableDO::getTenantId, reqVO.getTenantId())
                 .orderByDesc(DynamicTableDO::getId));
     }
 

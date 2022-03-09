@@ -6,18 +6,12 @@
       <el-form-item label="表名" prop="tableName">
         <el-input v-model="queryParams.tableName" placeholder="请输入表名" clearable size="small" @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="字段json串" prop="fieldJson">
-        <el-input v-model="queryParams.fieldJson" placeholder="请输入字段json串" clearable size="small" @keyup.enter.native="handleQuery"/>
-      </el-form-item>
       <el-form-item label="表描述" prop="comment">
         <el-input v-model="queryParams.comment" placeholder="请输入表描述" clearable size="small" @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="创建时间">
         <el-date-picker v-model="dateRangeCreateTime" size="small" style="width: 240px" value-format="yyyy-MM-dd"
                         type="daterange" range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" />
-      </el-form-item>
-      <el-form-item label="租户编号" prop="tenantId">
-        <el-input v-model="queryParams.tenantId" placeholder="请输入租户编号" clearable size="small" @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -42,14 +36,12 @@
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
       <el-table-column label="表名" align="center" prop="tableName" />
-      <el-table-column label="字段json串" align="center" prop="fieldJson" />
       <el-table-column label="表描述" align="center" prop="comment" />
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="租户编号" align="center" prop="tenantId" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
@@ -69,14 +61,14 @@
         <el-form-item label="表名" prop="tableName">
           <el-input v-model="form.tableName" placeholder="请输入表名" />
         </el-form-item>
-        <el-form-item label="字段json串" prop="fieldJson">
-          <el-input v-model="form.fieldJson" placeholder="请输入字段json串" />
+        <el-form-item label="表单项数组json串" prop="fields">
+          <el-input v-model="form.fields" placeholder="请输入表单项数组json串" />
+        </el-form-item>
+        <el-form-item label="配置" prop="conf">
+          <el-input v-model="form.conf" placeholder="请输入配置" />
         </el-form-item>
         <el-form-item label="表描述" prop="comment">
           <el-input v-model="form.comment" placeholder="请输入表描述" />
-        </el-form-item>
-        <el-form-item label="租户编号" prop="tenantId">
-          <el-input v-model="form.tenantId" placeholder="请输入租户编号" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -116,18 +108,15 @@ export default {
         pageNo: 1,
         pageSize: 10,
         tableName: null,
-        fieldJson: null,
         comment: null,
-        tenantId: null,
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
         tableName: [{ required: true, message: "表名不能为空", trigger: "blur" }],
-        fieldJson: [{ required: true, message: "字段json串不能为空", trigger: "blur" }],
-        comment: [{ required: true, message: "表描述不能为空", trigger: "blur" }],
-        tenantId: [{ required: true, message: "租户编号不能为空", trigger: "blur" }],
+        fields: [{ required: true, message: "表单项数组json串不能为空", trigger: "blur" }],
+        conf: [{ required: true, message: "配置不能为空", trigger: "blur" }],
       }
     };
   },
@@ -158,9 +147,9 @@ export default {
       this.form = {
         id: undefined,
         tableName: undefined,
-        fieldJson: undefined,
+        fields: undefined,
+        conf: undefined,
         comment: undefined,
-        tenantId: undefined,
       };
       this.resetForm("form");
     },

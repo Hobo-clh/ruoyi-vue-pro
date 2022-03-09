@@ -1,0 +1,49 @@
+package ${basePackage}.module.${table.moduleName}.service.${table.businessName};
+
+import java.util.*;
+import javax.validation.*;
+import ${basePackage}.module.${table.moduleName}.controller.${sceneEnum.basePackage}.${table.businessName}.vo.*;
+import ${basePackage}.module.${table.moduleName}.dal.dataobject.${table.businessName}.${table.className}DO;
+import ${PageResultClassName};
+import cn.iocoder.yudao.module.process.dal.ProcessCommonVo;
+
+/**
+ * ${table.classComment} Service 接口
+ *
+ * @author ${table.author}
+ */
+public interface ${table.className}Service {
+
+    /**
+     * 创建${table.classComment}
+     *
+     * @param createReqVO 创建信息
+     * @return 编号
+     */
+    ${primaryColumn.javaType} create${simpleClassName}(Long userId, @Valid ${sceneEnum.prefixClass}${table.className}CreateReqVO createReqVO);
+
+    /**
+     * 更新${table.classComment}的状态
+     *
+     * @param id 编号
+     * @param result 结果
+     */
+    void update${simpleClassName}Result(${primaryColumn.javaType} id, Integer result);
+
+    /**
+     * 获得${table.classComment}
+     *
+     * @param id 编号
+     * @return ${table.classComment}
+     */
+    ${table.className}DO get${simpleClassName}(${primaryColumn.javaType} id);
+
+    /**
+     * 获得${table.classComment}分页
+     *
+     * @param pageReqVO 分页查询
+     * @return ${table.classComment}分页
+     */
+    PageResult<ProcessCommonVo<${table.className}DO>> get${simpleClassName}Page(${sceneEnum.prefixClass}${table.className}PageReqVO pageReqVO);
+
+}

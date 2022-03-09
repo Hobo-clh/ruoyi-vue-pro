@@ -5,6 +5,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.module.bpm.controller.admin.oa.vo.BpmOALeaveCreateReqVO;
 import cn.iocoder.yudao.module.bpm.controller.admin.oa.vo.BpmOALeavePageReqVO;
 import cn.iocoder.yudao.module.bpm.dal.dataobject.oa.BpmOALeaveDO;
+import cn.iocoder.yudao.module.process.dal.ProcessCommonVo;
 
 import javax.validation.Valid;
 
@@ -48,6 +49,6 @@ public interface BpmOALeaveService {
      * @param pageReqVO 分页查询
      * @return 请假申请分页
      */
-    PageResult<BpmOALeaveDO> getLeavePage(Long userId, BpmOALeavePageReqVO pageReqVO);
+    PageResult<ProcessCommonVo<BpmOALeaveDO>> getLeavePage(Long userId, BpmOALeavePageReqVO pageReqVO);
 
 }

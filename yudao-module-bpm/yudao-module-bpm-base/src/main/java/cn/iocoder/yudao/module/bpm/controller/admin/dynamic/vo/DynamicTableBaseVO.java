@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
 * 动态表单列 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -16,15 +17,7 @@ public class DynamicTableBaseVO {
     @NotNull(message = "表名不能为空")
     private String tableName;
 
-    @ApiModelProperty(value = "字段json串", required = true)
-    @NotNull(message = "字段json串不能为空")
-    private String fieldJson;
-
-    @ApiModelProperty(value = "表描述", required = true)
+    @ApiModelProperty(value = "表描述")
     private String comment;
-
-    @ApiModelProperty(value = "租户编号", required = true)
-    @NotNull(message = "租户编号不能为空")
-    private Long tenantId;
 
 }

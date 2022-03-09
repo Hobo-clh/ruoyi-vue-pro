@@ -21,9 +21,6 @@ public class DynamicTablePageReqVO extends PageParam {
     @ApiModelProperty(value = "表名")
     private String tableName;
 
-    @ApiModelProperty(value = "字段json串")
-    private String fieldJson;
-
     @ApiModelProperty(value = "表描述")
     private String comment;
 
@@ -34,8 +31,5 @@ public class DynamicTablePageReqVO extends PageParam {
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     @ApiModelProperty(value = "结束创建时间")
     private Date endCreateTime;
-
-    @ApiModelProperty(value = "租户编号")
-    private Long tenantId;
 
 }

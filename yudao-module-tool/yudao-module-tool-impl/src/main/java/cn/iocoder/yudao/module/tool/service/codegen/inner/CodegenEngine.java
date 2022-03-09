@@ -20,9 +20,11 @@ import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
 import cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum;
+import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
 import cn.iocoder.yudao.module.tool.dal.dataobject.codegen.CodegenColumnDO;
 import cn.iocoder.yudao.module.tool.dal.dataobject.codegen.CodegenTableDO;
 import cn.iocoder.yudao.module.tool.enums.codegen.CodegenSceneEnum;
+import cn.iocoder.yudao.module.tool.enums.codegen.CodegenTemplateTypeEnum;
 import cn.iocoder.yudao.module.tool.framework.codegen.config.CodegenProperties;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
@@ -153,10 +155,18 @@ public class CodegenEngine {
         bindingMap.put("simpleClassName_strikeCase", simpleClassNameStrikeCase);
         // permission 前缀
         bindingMap.put("permissionPrefix", table.getModuleName() + ":" + simpleClassNameStrikeCase);
-
+        Map<String, String> templateMap = CodegenTemplateTypeEnum.getTemplateMap(table.getTemplateType());
+        // 如果多租户，则进行覆盖 DB 独有字段
+        if (CollectionUtils.findFirst(columns, column -> column.getColumnName().equals(CodegenBuilder.TENANT_ID_FIELD)) != null) {
+            bindingMap.put("BaseDOClassName", TenantBaseDO.class.getName());
+            bindingMap.put("BaseDOClassName_simple", TenantBaseDO.class.getSimpleName());
+        } else {
+            bindingMap.put("BaseDOClassName", BaseDO.class.getName());
+            bindingMap.put("BaseDOClassName_simple", BaseDO.class.getSimpleName());
+        }
         // 执行生成
-        final Map<String, String> result = Maps.newLinkedHashMapWithExpectedSize(TEMPLATES.size()); // 有序
-        TEMPLATES.forEach((vmPath, filePath) -> {
+        final Map<String, String> result = Maps.newLinkedHashMapWithExpectedSize(templateMap.size()); // 有序
+        templateMap.forEach((vmPath, filePath) -> {
             filePath = formatFilePath(filePath, bindingMap);
             String content = templateEngine.getTemplate(vmPath).render(bindingMap);
             result.put(filePath, content);

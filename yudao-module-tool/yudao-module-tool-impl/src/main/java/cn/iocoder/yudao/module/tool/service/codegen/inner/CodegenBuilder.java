@@ -90,7 +90,7 @@ public class CodegenBuilder {
             .put(Double.class.getSimpleName(), Sets.newHashSet("float", "double"))
             .put(BigDecimal.class.getSimpleName(), Sets.newHashSet("decimal", "numeric"))
             .put(String.class.getSimpleName(), Sets.newHashSet("tinytext", "text", "mediumtext", "longtext", // 长文本
-                    "char", "varchar", "nvarchar", "varchar2")) // 短文本
+                    "char", "varchar", "nvarchar", "varchar2", "json")) // 短文本
             .put(Date.class.getSimpleName(), Sets.newHashSet("datetime", "time", "date", "timestamp"))
             .put("byte[]", Sets.newHashSet("blob"))
             .build();

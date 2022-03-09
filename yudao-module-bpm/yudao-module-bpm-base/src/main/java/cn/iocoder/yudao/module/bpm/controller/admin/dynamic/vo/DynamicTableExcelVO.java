@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 动态表单列 Excel VO
@@ -21,6 +22,8 @@ public class DynamicTableExcelVO {
 
     @ExcelProperty("字段json串")
     private String fieldJson;
+
+    private List<String> fields;
 
     @ExcelProperty("表描述")
     private String comment;

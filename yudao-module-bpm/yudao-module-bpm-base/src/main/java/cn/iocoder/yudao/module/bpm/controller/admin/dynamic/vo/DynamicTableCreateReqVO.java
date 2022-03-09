@@ -1,14 +1,23 @@
 package cn.iocoder.yudao.module.bpm.controller.admin.dynamic.vo;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
 
 @ApiModel("管理后台 - 动态表单列创建 Request VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class DynamicTableCreateReqVO extends DynamicTableBaseVO {
+    @ApiModelProperty(value = "表单项数组json串", required = true)
+    @NotNull(message = "表单项数组json串不能为空")
+    private String fields;
 
+    @ApiModelProperty(value = "配置", required = true)
+    @NotNull(message = "配置不能为空")
+    private String conf;
 }

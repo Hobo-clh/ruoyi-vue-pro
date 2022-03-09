@@ -49,6 +49,10 @@ public class ServiceExceptionUtil {
         return exception0(errorCode.getCode(), messagePattern);
     }
 
+    public static ServiceException exception(String msg) {
+        return exception0(999, msg);
+    }
+
     public static ServiceException exception(ErrorCode errorCode, Object... params) {
         String messagePattern = MESSAGES.getOrDefault(errorCode.getCode(), errorCode.getMsg());
         return exception0(errorCode.getCode(), messagePattern, params);

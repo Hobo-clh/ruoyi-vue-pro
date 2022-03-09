@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.bpm.controller.admin.dynamic.vo;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,9 +17,6 @@ public class DynamicTableExportReqVO {
     @ApiModelProperty(value = "表名")
     private String tableName;
 
-    @ApiModelProperty(value = "字段json串")
-    private String fieldJson;
-
     @ApiModelProperty(value = "表描述")
     private String comment;
 
@@ -29,8 +27,4 @@ public class DynamicTableExportReqVO {
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     @ApiModelProperty(value = "结束创建时间")
     private Date endCreateTime;
-
-    @ApiModelProperty(value = "租户编号")
-    private Long tenantId;
-
 }

@@ -64,6 +64,9 @@ public interface ErrorCodeConstants {
     ErrorCode TABLE_NOT_EXISTS = new ErrorCode(1009010501, "动态表单列不存在");
     ErrorCode DYNAMIC_TABLE_TAG_NOT_FOUND = new ErrorCode(1009010502, "动态表单的tag未找到:{}");
 
+
+    ErrorCode THERE_IS_NO_TABLE_NAME_ANNOTATION = new ErrorCode(1009010508, "[{}] 不存在tableName注解");
+    ErrorCode PRIMARY_KEY_DOES_NOT_EXIST = new ErrorCode(1009010509, "[{}] 主键不存在");
     // ========== 用户组模块 1-009-011-000 ==========
     ErrorCode USER_GROUP_NOT_EXISTS = new ErrorCode(1009011000, "用户组不存在");
     ErrorCode USER_GROUP_IS_DISABLE = new ErrorCode(1009011001, "名字为【{}】的用户组已被禁用");
