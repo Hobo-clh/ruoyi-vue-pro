@@ -285,6 +285,7 @@ public class GlobalExceptionHandler {
      * @return 如果是 Table 不存在的异常，则返回对应的 CommonResult
      */
     private CommonResult<?> handleTableNotExists(Throwable ex) {
+        log.error("error:",ex);
         String message = ExceptionUtil.getRootCauseMessage(ex);
         if (!message.contains("doesn't exist")) {
             return null;
